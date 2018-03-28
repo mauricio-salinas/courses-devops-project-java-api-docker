@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  jenkins:
+    build:
+      context: jenkins
+    ports:
+      - 8080:8080
+      - 50000:50000
+    volumes:
+          - "jenkins-data:/var/jenkins_home"
+
+  travis:
+    image: gitlab/gitlab-ce
+    ports:
+      - 8081:80
+
+  artifactory:
+    image: docker.bintray.io/jfrog/artifactory-oss
+    ports:
+      - 8082:8081
+
+  nexus:
+    image: sonatype/nexus3
+    ports:
+      - 8083:8081
+
+volumes:
+  jenkins-data:
